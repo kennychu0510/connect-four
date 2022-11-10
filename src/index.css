@@ -1,0 +1,68 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  --main-bg-color: #242424;
+  background-color: var(--main-bg-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  overflow: hidden;
+}
+
+.App {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+  place-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.status {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.GameBoard {
+  background-color: rgb(42, 122, 235);
+  width: 350px;
+  padding: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1/1;
+  background-color: var(--main-bg-color);
+  border-radius: 100%;
+  width: 100%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.player {
+  width: 20px;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.red {
+  background-color: red;
+}

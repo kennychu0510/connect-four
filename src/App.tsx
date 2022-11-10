@@ -45,7 +45,7 @@ function App() {
           return (
             <div key={rowNum} className='row'>
               {row.map((cell: CellState, col) => {
-                return  <Cell key={rowNum+col} cell={cell} col={col} row={rowNum} board={board} setBoard={setBoard} setWinner={setWinner}></Cell>
+                return  <Cell key={rowNum+col} cell={cell} col={col} row={rowNum} board={board} setBoard={setBoard} setWinner={setWinner} winner={winner}></Cell>
               })}
             </div>
           )
@@ -55,10 +55,11 @@ function App() {
   )
 }
 
-function Cell (props: {cell: CellState, col: number, row: number, board: CellState[][], setBoard: any, setWinner: any}) {
-  const { cell, col, board, setBoard, setWinner } = props
+function Cell (props: {cell: CellState, col: number, row: number, board: CellState[][], setBoard: any, setWinner: any, winner: string}) {
+  const { cell, col, board, setBoard, setWinner, winner } = props
 
   function handleClick() {
+    if (winner) return
     const player = getPlayer(board)
     const {newBoard, success, location } = addPieceToBoard(col, board, player)
     if (success && location) {

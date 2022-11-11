@@ -1,6 +1,9 @@
 import { describe, expect, test } from '@jest/globals';
 
-import { addPieceToBoard, Board, checkForWinner, COLOR, getRound } from '../helper'
+import { addPieceToBoard, Board, checkForWinner, COLOR, getRound, makeMove } from '../helper'
+
+const R = 'red'
+const Y = 'yellow'
 
 describe('add piece function is working', () => {
   let board: Board = [[null, null], [null, null]]
@@ -46,7 +49,7 @@ describe('get round is working', () => {
 
 });
 
-describe.only('check for winner is working', () => {
+describe('check for winner is working', () => {
   
   test('winner should be red', () => {
     let board: Board = [
@@ -84,7 +87,7 @@ describe.only('check for winner is working', () => {
     expect(checkForWinner(board, 5, 3)).toBe(null);
   });
 
-  test.only('vertical check', () => {
+  test('vertical check', () => {
     let board: Board = [
       [null, null, null, null, null, null, null], 
       [null, 'red', null, null, null, null, null], 
@@ -96,7 +99,7 @@ describe.only('check for winner is working', () => {
     expect(checkForWinner(board, 4, 1)).toBe('red');
   });
 
-  test.only('vertical check', () => {
+  test('vertical check', () => {
     let board: Board = [
       [null, null, null, null, null, null, 'red'], 
       [null, 'red', null, null, null, null, 'red'], 
@@ -108,7 +111,7 @@ describe.only('check for winner is working', () => {
     expect(checkForWinner(board, 0, 6)).toBe('red');
   });
 
-  test.only('diagonal check', () => {
+  test('diagonal check', () => {
     let board: Board = [
       [null, null, null, null, null, null, 'red'], 
       [null, 'red', null, null, null, null, 'red'], 
@@ -120,7 +123,7 @@ describe.only('check for winner is working', () => {
     expect(checkForWinner(board, 2, 2)).toBe('red');
   });
 
-  test.only('diagonal check', () => {
+  test('diagonal check', () => {
     let board: Board = [
       [null, null, null, null, null, null, 'red'],
       [null, 'red', null, null, null, 'red', 'red'],
@@ -130,6 +133,82 @@ describe.only('check for winner is working', () => {
       [null, null, 'red', 'red', null, null, null],
     ]
     expect(checkForWinner(board, 3, 3)).toBe('red');
+  });
+
+});
+
+describe('check for winner', () => {
+  let board: Board = [['red', 'red'], [null, null]]
+
+  test('check for winner special', () => {
+    expect(checkForWinner(board, 0, 0, 2)).toBe('red');
+  });
+
+});
+
+describe.only('winning move', () => {
+  
+
+  test('check for winning move', () => {
+    const board: Board = [
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      ['yellow', 'yellow', 'yellow', null, null, null, null],
+    ]
+    expect(makeMove(board)).toBe(3);
+  });
+
+  
+
+  test('no move when board is full', () => {
+    const board: Board = [
+      ["red", "red", "red", "red", "red", "red", "red"],
+      ["red", "red", "red", "red", "red", "red", "red"],
+      ["red", "red", "red", "red", "red", "red", "red"],
+      ["red", "red", "red", "red", "red", "red", "red"],
+      ["red", "red", "red", "red", "red", "red", "red"],
+      ['yellow', 'yellow', 'yellow', "red", "red", "red", "red"],
+    ]
+    expect(makeMove(board)).toBe(null);
+  });
+
+  test('prevent loss move', () => {
+    const board: Board = [
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      ['red', 'red', 'red', null, null, null, null],
+    ]
+    expect(makeMove(board)).toBe(3);
+  });
+  
+  test('prevent loss move', () => {
+    const board: Board = [
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, 'red', 'red', 'red', null, null, null],
+    ]
+    expect(makeMove(board)).toBe(0);
+  });
+
+  test.only('prevent loss move', () => {
+    const board: Board = [
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null],
+      [Y, Y, null, null, null, null, null],
+      [R, R, R, null, null, null, null],
+    ]
+    expect(makeMove(board)).toBe(3);
   });
 
 });
